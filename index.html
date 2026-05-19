@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SwiftBox – Csomagküldés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --ink:     #111827;
+  --ink2:    #374151;
+  --muted:   #6B7280;
+  --light:   #9CA3AF;
+  --bg:      #F9FAFB;
+  --white:   #FFFFFF;
+  --border:  #E5E7EB;
+  --accent:  #1D4ED8;
+  --accent2: #2563EB;
+  --accent-bg: #EFF6FF;
+  --green:   #059669;
+  --green-bg:#ECFDF5;
+  --r:  14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --shadow: 0 1px 8px rgba(17,24,39,0.07);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  max-width: 480px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* NAV */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 19px; font-weight: 800; color: var(--ink); letter-spacing: -0.3px;
+}
+.logo-mark {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-mark svg { width: 18px; height: 18px; fill: white; }
+.nav-btn {
+  background: var(--accent); color: white; border: none; border-radius: 100px;
+  padding: 9px 20px; font-family: inherit; font-size: 13px; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+}
+
+/* HERO */
+.hero {
+  background: var(--ink);
+  padding: 36px 20px 32px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 220px; height: 220px; border-radius: 50%;
+  background: rgba(37,99,235,0.18);
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -40px; left: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: rgba(37,99,235,0.08);
+}
+.hero-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600;
+  padding: 5px 13px; border-radius: 100px; margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+.chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); }
+.hero-h1 {
+  font-size: 32px; font-weight: 800; color: white;
+  line-height: 1.12; letter-spacing: -0.8px; margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+.hero-h1 em { font-style: normal; color: #93C5FD; }
+.hero-p {
+  font-size: 14px; color: rgba(255,255,255,0.5);
+  line-height: 1.65; margin-bottom: 28px; position: relative; z-index: 1;
+}
+.hero-cta {
+  display: block; background: var(--accent); color: white;
+  border: none; border-radius: var(--r); padding: 15px 20px;
+  font-family: inherit; font-size: 15px; font-weight: 700;
+  text-align: center; text-decoration: none; position: relative; z-index: 1;
+}
+.hero-stats {
+  display: flex; margin-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;
+  position: relative; z-index: 1;
+}
+.hstat { flex: 1; }
+.hstat + .hstat { border-left: 1px solid rgba(255,255,255,0.08); padding-left: 20px; }
+.hstat-num { font-size: 22px; font-weight: 800; color: white; letter-spacing: -0.5px; }
+.hstat-label { font-size: 11px; color: rgba(255,255,255,0.38); font-weight: 600; margin-top: 3px; }
+
+/* SECTION */
+.section { padding: 28px 20px 0; }
+.eyebrow {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--accent); margin-bottom: 6px;
+}
+.sh2 {
+  font-size: 22px; font-weight: 800; color: var(--ink);
+  letter-spacing: -0.4px; line-height: 1.2; margin-bottom: 4px;
+}
+.ssub { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 20px; }
+
+/* SIZE CARDS */
+.size-list { display: flex; flex-direction: column; gap: 12px; }
+.sz-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--r-lg); padding: 18px 16px;
+  display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow);
+}
+.sz-icon {
+  width: 50px; height: 50px; border-radius: var(--r);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.ic-s { background: var(--accent-bg); }
+.ic-m { background: #F0FDF4; }
+.ic-l { background: #FFF7ED; }
+.sz-body { flex: 1; min-width: 0; }
+.sz-name { font-size: 15px; font-weight: 700; color: var(--ink); }
+.sz-kg   { font-size: 12px; color: var(--muted); font-weight: 500; margin-top: 1px; }
+.incl-badge {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 7px;
+  background: var(--green-bg); border-radius: 6px; padding: 3px 8px;
+  font-size: 11px; font-weight: 600; color: var(--green);
+}
+.sz-price-col { text-align: right; flex-shrink: 0; }
+.sz-price { font-size: 19px; font-weight: 800; color: var(--ink); letter-spacing: -0.5px; }
+.sz-from  { font-size: 10px; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+/* STOPS */
+.stops-wrap { padding: 28px 20px 0; }
+.stops-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow);
+}
+.stops-head {
+  background: var(--ink); padding: 18px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.stops-head-title { font-size: 15px; font-weight: 700; color: white; }
+.stops-head-sub   { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.stops-badge {
+  background: var(--accent); color: white; border-radius: 100px;
+  font-size: 11px; font-weight: 700; padding: 4px 11px; flex-shrink: 0;
+}
+
+.stop-row { display: flex; align-items: stretch; padding: 0 20px; }
+.stop-rail {
+  width: 24px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center;
+}
+.s-line { flex: 1; width: 2px; background: var(--border); min-height: 10px; }
+.s-dot  { width: 10px; height: 10px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+.s-dot.end { background: var(--accent); width: 12px; height: 12px; }
+.stop-content {
+  flex: 1; padding: 11px 0 11px 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.stop-row:last-child .stop-content { border-bottom: none; }
+.stop-city    { font-size: 14px; font-weight: 700; color: var(--ink); }
+.stop-country { font-size: 11px; color: var(--muted); font-weight: 500; margin-top: 1px; }
+.stop-km      { font-size: 11px; font-weight: 600; color: var(--light); }
+
+.stops-footer {
+  background: var(--green-bg); border-top: 1px solid #D1FAE5;
+  padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+}
+.stops-footer-text { font-size: 12px; font-weight: 600; color: var(--green); line-height: 1.5; }
+
+/* CALC */
+.calc-wrap { padding: 28px 20px 0; }
+.calc-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--r-xl); padding: 22px 18px; box-shadow: var(--shadow);
+}
+.fl { display: flex; flex-direction: column; gap: 14px; }
+.lbl {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--muted); margin-bottom: 7px;
+}
+.sel {
+  width: 100%; padding: 12px 14px;
+  border: 1.5px solid var(--border); border-radius: var(--r);
+  font-family: inherit; font-size: 14px; font-weight: 600;
+  color: var(--ink); background: var(--bg);
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  transition: border-color .18s;
+}
+.sel:focus { outline: none; border-color: var(--accent); background: white; }
+
+.stabs { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.stab {
+  border: 1.5px solid var(--border); border-radius: var(--r);
+  padding: 11px 6px; text-align: center; cursor: pointer; background: var(--bg);
+  transition: border-color .18s, background .18s;
+}
+.stab.on { border-color: var(--accent); background: var(--accent-bg); }
+.stab-l { font-size: 20px; font-weight: 800; color: var(--muted); }
+.stab.on .stab-l { color: var(--accent); }
+.stab-kg { font-size: 10px; color: var(--light); font-weight: 600; margin-top: 2px; }
+
+.res-box {
+  background: var(--ink); border-radius: var(--r-lg); padding: 18px 16px;
+}
+.res-lbl { font-size: 10px; color: rgba(255,255,255,0.4); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.res-price { font-size: 38px; font-weight: 800; color: white; letter-spacing: -1px; line-height: 1; }
+.res-route { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 8px; line-height: 1.6; }
+.res-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.rtag {
+  border-radius: 100px; font-size: 11px; font-weight: 600; padding: 3px 11px;
+}
+.rtag-blue { background: rgba(37,99,235,0.25); border: 1px solid rgba(37,99,235,0.4); color: #93C5FD; }
+.rtag-green { background: rgba(5,150,105,0.2); border: 1px solid rgba(5,150,105,0.35); color: #6EE7B7; }
+
+.ccta {
+  display: block; background: var(--accent); color: white;
+  border: none; border-radius: var(--r); padding: 14px; width: 100%;
+  font-family: inherit; font-size: 15px; font-weight: 700;
+  text-align: center; cursor: pointer; text-decoration: none;
+}
+.cnote { font-size: 11px; color: var(--light); text-align: center; margin-top: 10px; line-height: 1.5; }
+
+/* CONTACT */
+.contact-wrap { padding: 28px 20px 0; }
+.contact-card {
+  background: var(--ink); border-radius: var(--r-xl);
+  padding: 24px 20px; position: relative; overflow: hidden;
+}
+.contact-card::before {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(37,99,235,0.12);
+}
+.ctitle { font-size: 20px; font-weight: 800; color: white; margin-bottom: 4px; position: relative; z-index:1; }
+.csub   { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 18px; position: relative; z-index:1; }
+.cform  { display: flex; flex-direction: column; gap: 10px; position: relative; z-index:1; }
+.ci {
+  padding: 12px 14px; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: var(--r);
+  font-family: inherit; font-size: 14px; font-weight: 500;
+  color: white; width: 100%; transition: border-color .18s;
+}
+.ci::placeholder { color: rgba(255,255,255,0.25); }
+.ci:focus { outline: none; border-color: var(--accent2); }
+.ci-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+select.ci option { background: #1F2937; }
+textarea.ci { height: 80px; resize: none; }
+.csend {
+  padding: 14px; background: var(--accent); color: white;
+  border: none; border-radius: var(--r);
+  font-family: inherit; font-size: 15px; font-weight: 700;
+  cursor: pointer; width: 100%; position: relative; z-index:1;
+}
+.csuccess {
+  display: none; text-align: center; padding: 28px 0;
+  color: #6EE7B7; font-size: 15px; font-weight: 700;
+  position: relative; z-index:1;
+}
+
+/* FOOTER */
+footer {
+  padding: 28px 20px 40px; text-align: center;
+}
+.flogo { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+.fsub  { font-size: 12px; color: var(--muted); line-height: 1.7; }
+.flinks { display: flex; justify-content: center; gap: 18px; margin-top: 12px; }
+.flinks a { font-size: 12px; color: var(--light); text-decoration: none; }
+
+/* ANIM */
+@keyframes up { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+.a1{animation:up .45s .05s both;} .a2{animation:up .45s .12s both;}
+.a3{animation:up .45s .19s both;} .a4{animation:up .45s .26s both;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+    </div>
+    SwiftBox
+  </div>
+  <a href="#contact" class="nav-btn">Ajánlatot kérek</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-chip a1"><div class="chip-dot"></div>Heti járat · Stockholm → Budapest</div>
+  <h1 class="hero-h1 a2">Csomagod<br><em>pontosan</em> oda ér,<br>ahova kell.</h1>
+  <p class="hero-p a3">Megállópontos szállítás 10 városon át. Az útvonal 5 km-es körzetén belüli kiszállítás az árban szerepel — 20%-kal olcsóbban a piaci átlagnál.</p>
+  <a href="#calculator" class="hero-cta a4">Ár kiszámítása →</a>
+  <div class="hero-stats a4">
+    <div class="hstat">
+      <div class="hstat-num">2 360 km</div>
+      <div class="hstat-label">Stockholm – Budapest</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">−20%</div>
+      <div class="hstat-label">piaci ár alatt</div>
+    </div>
+  </div>
+</section>
+
+<!-- SIZES -->
+<div class="section">
+  <div class="eyebrow">Méretkategóriák</div>
+  <div class="sh2">Három méret, fix ár.</div>
+  <div class="ssub">Az ár tartalmazza a kiszállítást az útvonal 5 km-es körzetén belül.</div>
+  <div class="size-list">
+    <div class="sz-card">
+      <div class="sz-icon ic-s">📦</div>
+      <div class="sz-body">
+        <div class="sz-name">Kis csomag <b style="color:var(--accent)">S</b></div>
+        <div class="sz-kg">0–2 kg · max 40×30×20 cm</div>
+        <div class="incl-badge">✓ 5 km kiszállítás benne</div>
+      </div>
+      <div class="sz-price-col">
+        <div class="sz-price">9 800 Ft</div>
+        <div class="sz-from">Stockholm-tól</div>
+      </div>
+    </div>
+    <div class="sz-card">
+      <div class="sz-icon ic-m">🗃️</div>
+      <div class="sz-body">
+        <div class="sz-name">Közepes <b style="color:#16A34A">M</b></div>
+        <div class="sz-kg">2–10 kg · max 60×40×40 cm</div>
+        <div class="incl-badge">✓ 5 km kiszállítás benne</div>
+      </div>
+      <div class="sz-price-col">
+        <div class="sz-price">19 600 Ft</div>
+        <div class="sz-from">Stockholm-tól</div>
+      </div>
+    </div>
+    <div class="sz-card">
+      <div class="sz-icon ic-l">📫</div>
+      <div class="sz-body">
+        <div class="sz-name">Nagy csomag <b style="color:#C2410C">L</b></div>
+        <div class="sz-kg">10–30 kg · egyedi méretig</div>
+        <div class="incl-badge">✓ 5 km kiszállítás benne</div>
+      </div>
+      <div class="sz-price-col">
+        <div class="sz-price">28 000 Ft</div>
+        <div class="sz-from">Stockholm-tól</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STOPS -->
+<div class="stops-wrap">
+  <div class="eyebrow" style="margin-bottom:6px">Az útvonal</div>
+  <div class="sh2" style="margin-bottom:16px">10 megálló, heti indulás.</div>
+  <div class="stops-card">
+    <div class="stops-head">
+      <div>
+        <div class="stops-head-title">Stockholm → Budapest</div>
+        <div class="stops-head-sub">visszafelé minden megállóból</div>
+      </div>
+      <div class="stops-badge">Heti járat</div>
+    </div>
+    <div id="stop-list"></div>
+    <div class="stops-footer">
+      <span style="font-size:18px">📍</span>
+      <div class="stops-footer-text">Az útvonal 5 km-es körzetén belüli kiszállítás az árban szerepel. Ezen túl egyedi ajánlat alapján.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CALC -->
+<div class="calc-wrap" id="calculator">
+  <div class="eyebrow" style="margin-bottom:6px">Árkalkulátor</div>
+  <div class="sh2" style="margin-bottom:16px">Számold ki az árat.</div>
+  <div class="calc-card">
+    <div class="fl">
+      <div>
+        <div class="lbl">Feladás megállója</div>
+        <select class="sel" id="c-from" onchange="calc()">
+          <option value="stockholm">Stockholm</option>
+          <option value="malmo">Malmö</option>
+          <option value="kobenhavn">Koppenhága</option>
+          <option value="hamburg">Hamburg</option>
+          <option value="berlin">Berlin</option>
+          <option value="munchen">München</option>
+          <option value="linz">Linz</option>
+          <option value="wien">Bécs</option>
+          <option value="gyor">Győr</option>
+          <option value="budapest">Budapest</option>
+        </select>
+      </div>
+      <div>
+        <div class="lbl">Átvétel megállója</div>
+        <select class="sel" id="c-to" onchange="calc()">
+          <option value="budapest">Budapest</option>
+          <option value="gyor">Győr</option>
+          <option value="wien">Bécs</option>
+          <option value="linz">Linz</option>
+          <option value="munchen">München</option>
+          <option value="berlin">Berlin</option>
+          <option value="hamburg">Hamburg</option>
+          <option value="kobenhavn">Koppenhága</option>
+          <option value="malmo">Malmö</option>
+          <option value="stockholm">Stockholm</option>
+        </select>
+      </div>
+      <div>
+        <div class="lbl">Csomag mérete</div>
+        <div class="stabs">
+          <div class="stab on" id="tab-S" onclick="setSize('S')"><div class="stab-l">S</div><div class="stab-kg">0–2 kg</div></div>
+          <div class="stab"    id="tab-M" onclick="setSize('M')"><div class="stab-l">M</div><div class="stab-kg">2–10 kg</div></div>
+          <div class="stab"    id="tab-L" onclick="setSize('L')"><div class="stab-l">L</div><div class="stab-kg">10–30 kg</div></div>
+        </div>
+      </div>
+      <div class="res-box">
+        <div class="res-lbl">Becsült ár</div>
+        <div class="res-price" id="res-price">9 800 Ft</div>
+        <div class="res-route" id="res-route">Stockholm → Budapest · S (0–2 kg)</div>
+        <div class="res-tags">
+          <span class="rtag rtag-blue" id="res-saving">Megtakarítás: ~2 450 Ft</span>
+          <span class="rtag rtag-green">✓ 5 km kiszállítás benne</span>
+        </div>
+      </div>
+      <a href="#contact" class="ccta">Ajánlatot kérek →</a>
+      <p class="cnote">Tájékoztató ár. A kiszállítás az 5 km-es körzetben az árban szerepel.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-wrap" id="contact">
+  <div class="eyebrow" style="margin-bottom:6px">Kapcsolat</div>
+  <div class="sh2" style="margin-bottom:16px">Írj nekünk.</div>
+  <div class="contact-card">
+    <div class="ctitle">Ajánlatkérés</div>
+    <div class="csub">24 órán belül visszajelzünk — magyarul és svédül is.</div>
+    <div class="cform" id="cf-form">
+      <div class="ci-row">
+        <input class="ci" id="cf-name"  type="text"  placeholder="Neved">
+        <input class="ci" id="cf-email" type="email" placeholder="Email">
+      </div>
+      <input class="ci" id="cf-phone" type="tel" placeholder="Telefonszám (opcionális)">
+      <select class="ci" id="cf-size">
+        <option value="" disabled selected>Csomag mérete</option>
+        <option>S – 0–2 kg</option>
+        <option>M – 2–10 kg</option>
+        <option>L – 10–30 kg</option>
+        <option>Egyedi méret</option>
+      </select>
+      <div class="ci-row">
+        <select class="ci" id="cf-from">
+          <option value="" disabled selected>Feladás</option>
+          <option>Stockholm</option><option>Malmö</option><option>Koppenhága</option>
+          <option>Hamburg</option><option>Berlin</option><option>München</option>
+          <option>Linz</option><option>Bécs</option><option>Győr</option><option>Budapest</option>
+        </select>
+        <select class="ci" id="cf-to">
+          <option value="" disabled selected>Célváros</option>
+          <option>Budapest</option><option>Győr</option><option>Bécs</option>
+          <option>Linz</option><option>München</option><option>Berlin</option>
+          <option>Hamburg</option><option>Koppenhága</option><option>Malmö</option><option>Stockholm</option>
+        </select>
+      </div>
+      <textarea class="ci" id="cf-msg" placeholder="Megjegyzés…"></textarea>
+      <button class="csend" onclick="send()">Küldés →</button>
+    </div>
+    <div class="csuccess" id="cf-ok">✅ Köszönjük! Hamarosan visszajelzünk.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo">SwiftBox</div>
+  <div class="fsub">info@swiftbox.hu &nbsp;·&nbsp; swiftbox.hu<br>Skandináv–Magyar megállópontos csomagküldés</div>
+  <div class="flinks"><a href="#">ÁSZF</a><a href="#">Adatvédelem</a></div>
+</footer>
+
+<script>
+const CITIES = [
+  { key:'stockholm', name:'Stockholm',  country:'Svédország',  km:2360 },
+  { key:'malmo',     name:'Malmö',      country:'Svédország',  km:1740 },
+  { key:'kobenhavn', name:'Koppenhága', country:'Dánia',       km:1690 },
+  { key:'hamburg',   name:'Hamburg',    country:'Németország', km:1380 },
+  { key:'berlin',    name:'Berlin',     country:'Németország', km:1090 },
+  { key:'munchen',   name:'München',    country:'Németország', km:500  },
+  { key:'linz',      name:'Linz',       country:'Ausztria',    km:370  },
+  { key:'wien',      name:'Bécs',       country:'Ausztria',    km:250  },
+  { key:'gyor',      name:'Győr',       country:'Magyarország',km:120  },
+  { key:'budapest',  name:'Budapest',   country:'Magyarország',km:0    },
+];
+const MAP = Object.fromEntries(CITIES.map(c=>[c.key,c]));
+const BASE = {S:9800,M:19600,L:28000};
+const BASE_KM=2360, MIN_KM=120;
+let sz='S';
+
+// Build stop list
+const sl = document.getElementById('stop-list');
+CITIES.forEach((c,i)=>{
+  const isEnd = i===0||i===CITIES.length-1;
+  sl.innerHTML+=`
+  <div class="stop-row">
+    <div class="stop-rail">
+      <div class="s-line" style="${i===0?'visibility:hidden':''}"></div>
+      <div class="s-dot ${isEnd?'end':''}"></div>
+      <div class="s-line" style="${i===CITIES.length-1?'visibility:hidden':''}"></div>
+    </div>
+    <div class="stop-content">
+      <div><div class="stop-city">${c.name}</div><div class="stop-country">${c.country}</div></div>
+      <div class="stop-km">${c.km.toLocaleString('hu-HU')} km</div>
+    </div>
+  </div>`;
+});
+
+function setSize(s){
+  sz=s;
+  ['S','M','L'].forEach(x=>{ document.getElementById('tab-'+x).className='stab'+(x===s?' on':''); });
+  calc();
+}
+
+function calc(){
+  const from=document.getElementById('c-from').value;
+  const to=document.getElementById('c-to').value;
+  const km=Math.max(Math.abs(MAP[from].km-MAP[to].km),MIN_KM);
+  const base=Math.round(BASE[sz]*km/BASE_KM/100)*100;
+  const save=Math.round(base/0.8)-base;
+  document.getElementById('res-price').textContent=base.toLocaleString('hu-HU')+' Ft';
+  document.getElementById('res-route').textContent=MAP[from].name+' → '+MAP[to].name+' · '+sz+' ('+{S:'0–2 kg',M:'2–10 kg',L:'10–30 kg'}[sz]+')';
+  document.getElementById('res-saving').textContent='Megtakarítás: ~'+save.toLocaleString('hu-HU')+' Ft';
+}
+
+function send(){
+  const n=document.getElementById('cf-name').value.trim();
+  const e=document.getElementById('cf-email').value.trim();
+  if(!n||!e){alert('Kérjük add meg a neved és email-címed.');return;}
+  document.getElementById('cf-form').style.display='none';
+  document.getElementById('cf-ok').style.display='block';
+}
+
+calc();
+</script>
+</body>
+</html>
