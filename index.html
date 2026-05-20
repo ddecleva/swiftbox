@@ -499,7 +499,7 @@ footer {
 <footer>
   <div class="flogo">SwiftBox</div>
   <div class="fsub">info@swiftbox.hu &nbsp;·&nbsp; swiftbox.hu<br>Skandináv–Magyar megállópontos csomagküldés</div>
-  <div class="flinks"><a href="#">ÁSZF</a><a href="#">Adatvédelem</a></div>
+  <div class="flinks"><a href="aszf.html">ÁSZF</a><a href="adatvedelem.html">Adatvédelem</a></div>
 </footer>
 
 <script>
@@ -570,10 +570,12 @@ async function send(){
   btn.textContent='Küldés...'; btn.disabled=true;
 
   try {
-    const res = await fetch('https://formspree.io/f/xzdwegaw', {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
+        access_key: '5bfa3fdf-4f48-42c2-bccb-3c68881b10b5',
+        subject: 'Új ajánlatkérés – SwiftBox',
         name: n, email: e, phone: p,
         size: size, from: from, to: to, message: msg
       })

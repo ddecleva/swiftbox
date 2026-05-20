@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ÁSZF – SwiftBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #111827; --ink2: #374151; --muted: #6B7280;
+  --bg: #F9FAFB; --white: #fff; --border: #E5E7EB;
+  --accent: #1D4ED8; --r: 14px;
+}
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--ink); max-width: 480px; margin: 0 auto; min-height: 100vh; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 14px 20px; display: flex; align-items: center; justify-content: space-between;
+}
+.logo { font-size: 18px; font-weight: 800; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.logo-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--ink); display: flex; align-items: center; justify-content: center; }
+.logo-mark svg { width: 16px; height: 16px; fill: white; }
+
+.hero { background: var(--ink); padding: 32px 20px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50px; right: -50px; width: 180px; height: 180px; border-radius: 50%; background: rgba(37,99,235,0.18); }
+.hero-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #93C5FD; margin-bottom: 10px; position: relative; z-index: 1; }
+.hero-title { font-size: 26px; font-weight: 800; color: white; letter-spacing: -0.5px; position: relative; z-index: 1; }
+.hero-sub { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 8px; position: relative; z-index: 1; }
+
+.content { padding: 28px 20px 48px; }
+.section { margin-bottom: 28px; }
+.section-num { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+.section-title { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 10px; }
+.section-body { font-size: 14px; color: var(--ink2); line-height: 1.75; }
+.section-body p { margin-bottom: 10px; }
+.section-body ul { padding-left: 18px; margin-bottom: 10px; }
+.section-body ul li { margin-bottom: 6px; }
+.section-body strong { font-weight: 700; color: var(--ink); }
+
+.divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+.info-box {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 16px 18px; margin-bottom: 24px;
+}
+.info-box-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+.info-box-item { font-size: 14px; color: var(--ink2); margin-bottom: 4px; }
+
+footer { padding: 24px 20px 36px; text-align: center; border-top: 1px solid var(--border); }
+footer a { font-size: 13px; color: var(--muted); text-decoration: none; margin: 0 10px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+    SwiftBox
+  </a>
+  <a href="index.html" style="font-size:13px;color:var(--muted);text-decoration:none;">← Vissza</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Jogi dokumentum</div>
+  <div class="hero-title">Általános Szerződési Feltételek</div>
+  <div class="hero-sub">Hatályos: 2025. január 1-től</div>
+</div>
+
+<div class="content">
+
+  <div class="info-box">
+    <div class="info-box-label">Szolgáltató adatai</div>
+    <div class="info-box-item"><strong>Cégnév:</strong> SwiftBox</div>
+    <div class="info-box-item"><strong>Weboldal:</strong> swiftbox.hu</div>
+    <div class="info-box-item"><strong>Email:</strong> info@swiftbox.hu</div>
+    <div class="info-box-item"><strong>Tevékenység:</strong> Nemzetközi csomagküldő szolgáltatás</div>
+  </div>
+
+  <div class="section">
+    <div class="section-num">1. §</div>
+    <div class="section-title">Általános rendelkezések</div>
+    <div class="section-body">
+      <p>Jelen Általános Szerződési Feltételek (a továbbiakban: ÁSZF) a SwiftBox (a továbbiakban: Szolgáltató) által nyújtott csomagküldési és szállítási szolgáltatásokra vonatkoznak.</p>
+      <p>A szolgáltatás igénybevételével a Megrendelő elfogadja a jelen ÁSZF feltételeit. Az ÁSZF hatálya kiterjed minden, a Szolgáltató által nyújtott szállítási szolgáltatásra.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-num">2. §</div>
+    <div class="section-title">A szolgáltatás leírása</div>
+    <div class="section-body">
+      <p>A SwiftBox megállópontos csomagküldési szolgáltatást nyújt az alábbi útvonalon:</p>
+      <ul>
+        <li>Stockholm – Malmö – Koppenhága – Hamburg – Berlin – München – Linz – Bécs – Győr – Budapest</li>
+        <li>Visszairányban: Budapest – Győr – Bécs – Linz – München – Berlin – Hamburg – Koppenhága – Malmö – Stockholm</li>
+      </ul>
+      <p>A szolgáltatás heti rendszeres járattal működik. A csomagok az útvonal megállópontjain adhatók fel és vehetők át. Az útvonal <strong>5 km-es körzetén belüli kiszállítás az árban szerepel</strong>.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-num">3. §</div>
+    <div class="section-title">Méretkategóriák és díjszabás</div>
+    <div class="section-body">
+      <ul>
+        <li><strong>S csomag:</strong> 0–2 kg, max 40×30×20 cm</li>
+        <li><strong>M csomag:</strong> 2–10 kg, max 60×40×40 cm</li>
+        <li><strong>L csomag:</strong> 10–30 kg, egyedi méretig</li>
+      </ul>
+      <p>Az árkalkulátor tájékoztató jellegű árat mutat. A pontos ár a feladási és célváros, valamint a csomag tényleges mérete és súlya alapján kerül meghatározásra. A Szolgáltató fenntartja az árak módosításának jogát, amelyről a Megrendelőt előzetesen értesíti.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-num">4. §</div>
+    <div class="section-title">A megrendelés menete</div>
+    <div class="section-body">
+      <p>A megrendelés az alábbi lépésekben történik:</p>
+      <ul>
+        <li>Az ügyfél ajánlatot kér a weboldalon keresztül</li>
+        <li>A Szolgáltató 24 órán belül visszaigazolást küld emailben</li>
+        <li>A felek megállapodnak a pontos feltételekben</li>
+        <li>A csomag leadása a megálló ponton a megbeszélt időpontban történik</li>
+      </ul>
+      <p>A szerződés a visszaigazolás elküldésével jön létre.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-num">5. §</div>
+    <div class="section-title">Tiltott és korlátozott tartalmak</div>
+    <div class="section-body">
+      <p>A következő anyagok szállítása tilos:</p>
+      <ul>
+        <li>Veszélyes anyagok, robbanószerek, tűzijáték</li>
+        <li>Kábítószerek és tiltott anyagok</li>
+        <li>Élő állatok</li>
+        <li>Fegyverek és lőszerek</li>
+        <li>Romlandó élelmiszerek (különleges megállapodás nélkül)</li>
+        <li>Jogellenes termékek</li>
+      </ul>
+      <p>A Megrendelő felelős a csomag tartalmának jogszerűségéért. Jogellenes tartalom esetén a Szolgáltató jogosult a szállítást megtagadni és a hatóságokat értesíteni.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-num">6. §</div>
+    <div class="section-title">Felelősség és kárfelelősség</div>
+    <div class="section-body">
+      <p>A Szolgáltató felelősséget vállal a szállítás során bekövetkező, bizonyíthatóan a Szolgáltató hibájából eredő károkért, az alábbi korlátokkal:</p>
+      <ul>
+        <li>A kártérítés maximuma a szállítási díj 5-szöröse</li>
+        <li>Törékeny tárgyakat csak megfelelő csomagolásban fogadunk el</li>
+        <li>Értéktárgyak szállítása előzetes egyeztetés alapján lehetséges</li>
+      </ul>
+      <p>A Szolgáltató nem vállal felelősséget vis maior esetén (természeti katasztrófa, hatósági intézkedés, sztrájk stb.).</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-num">7. §</div>
+    <div class="section-title">Fizetési feltételek</div>
+    <div class="section-body">
+      <p>A szállítási díj fizetése az alábbi módokon lehetséges:</p>
+      <ul>
+        <li>Banki átutalás (előre)</li>
+        <li>Készpénz (a csomag leadásakor)</li>
+      </ul>
+      <p>A számla kiállítása az átvételt követő 8 napon belül történik. Késedelmes fizetés esetén a Ptk. szerinti késedelmi kamat kerül felszámításra.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-num">8. §</div>
+    <div class="section-title">Lemondás és módosítás</div>
+    <div class="section-body">
+      <p>A megrendelés az indulás előtt <strong>48 órával</strong> lemondható díjmentesen. Ezen belüli lemondás esetén a szállítási díj 50%-a kerül felszámításra.</p>
+      <p>Módosítási igényt legalább 48 órával az indulás előtt kell jelezni emailben az info@swiftbox.hu címen.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-num">9. §</div>
+    <div class="section-title">Panaszkezelés</div>
+    <div class="section-body">
+      <p>Panaszt az info@swiftbox.hu email címen lehet benyújtani. A Szolgáltató a panaszt 5 munkanapon belül megvizsgálja és érdemben válaszol.</p>
+      <p>Vitás esetekben a felek elsősorban tárgyalásos úton rendezik az ellentéteket. Ennek sikertelensége esetén a hatáskörrel és illetékességgel rendelkező magyar bíróság jár el.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-num">10. §</div>
+    <div class="section-title">Egyéb rendelkezések</div>
+    <div class="section-body">
+      <p>A jelen ÁSZF-ben nem szabályozott kérdésekben a magyar Polgári Törvénykönyv és az egyéb vonatkozó jogszabályok rendelkezései az irányadók.</p>
+      <p>A Szolgáltató fenntartja az ÁSZF egyoldalú módosításának jogát. A módosítások a weboldalon való közzétételtől számított 15 nap elteltével lépnek hatályba.</p>
+      <p><strong>Hatályos:</strong> 2025. január 1-től</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html">Főoldal</a>
+  <a href="adatvedelem.html">Adatvédelmi tájékoztató</a>
+</footer>
+
+</body>
+</html>
