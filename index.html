@@ -555,15 +555,43 @@ function calc(){
   document.getElementById('res-saving').textContent='Megtakarítás: ~'+save.toLocaleString('hu-HU')+' Ft';
 }
 
-function send(){
-  const n=document.getElementById('cf-name').value.trim();
-  const e=document.getElementById('cf-email').value.trim();
+async function send(){
+  const n    = document.getElementById('cf-name').value.trim();
+  const e    = document.getElementById('cf-email').value.trim();
+  const p    = document.getElementById('cf-phone').value.trim();
+  const size = document.getElementById('cf-size').value;
+  const from = document.getElementById('cf-from').value;
+  const to   = document.getElementById('cf-to').value;
+  const msg  = document.getElementById('cf-msg').value.trim();
+
   if(!n||!e){alert('Kérjük add meg a neved és email-címed.');return;}
-  document.getElementById('cf-form').style.display='none';
-  document.getElementById('cf-ok').style.display='block';
+
+  const btn = document.querySelector('.csend');
+  btn.textContent='Küldés...'; btn.disabled=true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/xzdwegaw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: n, email: e, phone: p,
+        size: size, from: from, to: to, message: msg
+      })
+    });
+    if(res.ok){
+      document.getElementById('cf-form').style.display='none';
+      document.getElementById('cf-ok').style.display='block';
+    } else {
+      alert('Hiba történt. Kérjük próbáld újra vagy írj: info@swiftbox.hu');
+      btn.textContent='Küldés →'; btn.disabled=false;
+    }
+  } catch(err){
+    alert('Hálózati hiba. Kérjük próbáld újra.');
+    btn.textContent='Küldés →'; btn.disabled=false;
+  }
 }
 
 calc();
 </script>
 </body>
-</html> 
+</html>
